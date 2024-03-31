@@ -1,167 +1,91 @@
-import { useBox } from '@react-three/cannon';
 import { MeshProps } from '@react-three/fiber';
-import * as THREE from 'three';
+import { RigidBody } from '@react-three/rapier';
 
 const rotateAngle = Math.PI / 48;
-const baseColorMaterial = new THREE.MeshStandardMaterial({ color: 'orange' });
-const guardColorMaterial = new THREE.MeshStandardMaterial({ color: 'peru' });
+const baseColor = 'orange';
+const guardrailColor = 'peru';
+const bottomGuardRailBoxArgs = [4.2, 0.4, 0.1] as [number, number, number];
 
-const StaticBoxMesh = (meshProps: MeshProps) => {
-  const { name, position, rotation, args } = meshProps;
-  // 0: boxGeometry, 1: meshStandardMaterial
-  if (args?.[0] === undefined || args?.[1] === undefined) {
-    return <></>;
-  }
+type DownMeshProps = MeshProps & { rotateDirection: 'left' | 'right' };
 
-  const size = (args[0] as THREE.BoxGeometry).parameters;
-  const [ref] = useBox<THREE.Mesh>(() => ({
-    type: 'Static',
-    args: [size.width, size.height, size.depth],
-    position: position as [number, number, number],
-    rotation: rotation as [number, number, number],
-  }));
-  return <mesh ref={ref} name={name} args={meshProps.args}></mesh>;
+const DownGardRailMesh = (props: {
+  name: string;
+  position: [number, number, number];
+}): JSX.Element => {
+  return (
+    <mesh name={props.name} position={props.position}>
+      <boxGeometry args={[4.1, 0.2, 0.1]} />
+      <meshStandardMaterial color={guardrailColor} />
+    </mesh>
+  );
+};
+
+const DownWallMesh = (props: DownMeshProps): JSX.Element => {
+  return (
+    <group
+      name={`${props.name}-down-wall`}
+      position={props.position}
+      rotation={[0, 0, props.rotateDirection === 'right' ? rotateAngle : -rotateAngle]}
+    >
+      <mesh name={`${props.name}-down-wall-front`}>
+        <boxGeometry args={[3.3, 0.1, 0.7]} />
+        <meshStandardMaterial color={baseColor} />
+      </mesh>
+      <DownGardRailMesh
+        name={`${props.name}-down-wall-back`}
+        position={[props.rotateDirection === 'right' ? -0.28 : 0.28, 0, 0.4]}
+      />
+      <DownGardRailMesh
+        name={`${props.name}-down-wall-front`}
+        position={[props.rotateDirection === 'right' ? -0.28 : 0.28, 0, -0.4]}
+      />
+    </group>
+  );
 };
 
 export const MiniCoaster = (): JSX.Element => {
   return (
     <group name="mini-coaster">
-      <group name="bottom-wall">
-        <StaticBoxMesh
-          name="bottom-wall-base"
-          position={[0, -2, 0]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 1), baseColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="bottom-wall-back"
-          position={[0, -1.9, 0.55]}
-          args={[new THREE.BoxGeometry(4.2, 0.4, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="bottom-wall-front"
-          position={[0, -1.9, -0.55]}
-          args={[new THREE.BoxGeometry(4.2, 0.4, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-      </group>
+      <RigidBody type="fixed" colliders="cuboid">
+        <group name="bottom-wall">
+          <mesh name="bottom-wall-base" position={[0, -2, 0]}>
+            <boxGeometry args={[4.1, 0.2, 1]} />
+            <meshStandardMaterial color={baseColor} />
+          </mesh>
+          <mesh name="bottom-wall-back" position={[0, -1.9, 0.55]}>
+            <boxGeometry args={bottomGuardRailBoxArgs} />
+            <meshStandardMaterial color={guardrailColor} />
+          </mesh>
+          <mesh name="bottom-wall-front" position={[0, -1.9, -0.55]}>
+            <boxGeometry args={bottomGuardRailBoxArgs} />
+            <meshStandardMaterial color={guardrailColor} />
+          </mesh>
+        </group>
 
-      <StaticBoxMesh
-        name="left-wall"
-        position={[2, 0.16, 0]}
-        rotation={[0, 0, Math.PI / 2]}
-        args={[new THREE.BoxGeometry(4.5, 0.2, 1), baseColorMaterial]}
-      ></StaticBoxMesh>
+        <mesh name="left-wall" position={[2, 0.16, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <boxGeometry args={[4.5, 0.2, 1]} />
+          <meshStandardMaterial color={baseColor} />
+        </mesh>
 
-      <StaticBoxMesh
-        name="right-wall"
-        position={[-2, 0.05, 0]}
-        rotation={[0, 0, Math.PI / 2]}
-        args={[new THREE.BoxGeometry(4.3, 0.2, 1), baseColorMaterial]}
-      ></StaticBoxMesh>
+        <mesh name="right-wall" position={[-2, 0.05, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <boxGeometry args={[4.3, 0.2, 1]} />
+          <meshStandardMaterial color={baseColor} />
+        </mesh>
 
-      <group name="top-wall">
-        <StaticBoxMesh
-          name="top-wall-base"
-          position={[0.28, 2.1, 0]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(3.3, 0.1, 1), baseColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="top-wall-back"
-          position={[0, 2.1, 0.55]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="top-wall-front"
-          position={[0, 2.1, -0.55]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-      </group>
+        <group name="first-down-wall" position={[0.28, 2.1, 0]} rotation={[0, 0, rotateAngle]}>
+          <mesh name="first-down-wall-base">
+            <boxGeometry args={[3.3, 0.1, 1]} />
+            <meshStandardMaterial color={baseColor} />
+          </mesh>
+          <DownGardRailMesh name="first-down-wall-back" position={[-0.28, 0, 0.55]} />
+          <DownGardRailMesh name="first-down-wall-front" position={[-0.28, 0, -0.55]} />
+        </group>
 
-      <group name="second-top-wall">
-        <StaticBoxMesh
-          name="second-top-wall-base"
-          position={[-0.25, 1.2, 0]}
-          rotation={[0, 0, -rotateAngle]}
-          args={[new THREE.BoxGeometry(3.3, 0.1, 0.7), baseColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="second-top-wall-back"
-          position={[0, 1.2, 0.4]}
-          rotation={[0, 0, -rotateAngle]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="second-top-wall-front"
-          position={[0, 1.2, -0.4]}
-          rotation={[0, 0, -rotateAngle]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-      </group>
-
-      <group name="third-top-wall">
-        <StaticBoxMesh
-          name="third-top-wall-base"
-          position={[0.25, 0.2, 0]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(3.3, 0.1, 0.7), baseColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="third-top-wall-back"
-          position={[0, 0.2, 0.4]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="third-top-wall-front"
-          position={[0, 0.2, -0.4]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-      </group>
-
-      <group name="fourth-top-wall">
-        <StaticBoxMesh
-          name="fourth-top-wall-base"
-          position={[-0.25, -0.8, 0]}
-          rotation={[0, 0, -rotateAngle]}
-          args={[new THREE.BoxGeometry(3.3, 0.1, 0.7), baseColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="fourth-top-wall-back"
-          position={[0, -0.8, 0.4]}
-          rotation={[0, 0, -rotateAngle]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="fourth-top-wall-front"
-          position={[0, -0.8, -0.4]}
-          rotation={[0, 0, -rotateAngle]}
-          args={[new THREE.BoxGeometry(4.1, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-      </group>
-
-      <group name="fifth-top-wall">
-        <StaticBoxMesh
-          name="fifth-top-wall-base"
-          position={[0.28, -1.85, 0]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(3.3, 0.1, 0.7), baseColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="fifth-top-wall-back"
-          position={[0.28, -1.85, 0.4]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(3.3, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-        <StaticBoxMesh
-          name="fifth-top-wall-front"
-          position={[0.28, -1.85, -0.4]}
-          rotation={[0, 0, rotateAngle]}
-          args={[new THREE.BoxGeometry(3.3, 0.2, 0.1), guardColorMaterial]}
-        ></StaticBoxMesh>
-      </group>
+        <DownWallMesh name="second" position={[-0.25, 1.2, 0]} rotateDirection="left" />
+        <DownWallMesh name="first" position={[0.25, 0.2, 0]} rotateDirection="right" />
+        <DownWallMesh name="fourth" position={[-0.25, -0.8, 0]} rotateDirection="left" />
+        <DownWallMesh name="fifth" position={[0.28, -1.85, 0]} rotateDirection="right" />
+      </RigidBody>
     </group>
   );
 };
