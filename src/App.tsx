@@ -1,7 +1,7 @@
 import './App.css';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { HelloCube } from './components/HelloCube';
+import { CannonCube } from './components/CannonCube';
 
 function App() {
   return (
@@ -9,7 +9,8 @@ function App() {
       <Canvas camera={{ position: [0, 6, -10], zoom: 3 }}>
         <color attach="background" args={['lightgray']} />
         <OrbitControls />
-        <HelloCube />
+        {/* <HelloCube /> */}
+        <CannonCube />
         {/* <ToyMiniCoaster /> */}
       </Canvas>
     </>
