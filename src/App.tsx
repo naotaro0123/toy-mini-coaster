@@ -1,7 +1,7 @@
 import './App.css';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { CannonCube } from './components/CannonCube';
+import { SimpleRapierPhysics } from './components/SimpleRapierPhysics';
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
         <color attach="background" args={['lightgray']} />
         <OrbitControls />
         {/* <HelloCube /> */}
-        <CannonCube />
+        {/* <SimpleCannonPhysics /> */}
+        <SimpleRapierPhysics />
         {/* <ToyMiniCoaster /> */}
       </Canvas>
     </>

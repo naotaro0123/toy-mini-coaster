@@ -1,7 +1,7 @@
 import { useSphere, useBox, Physics, Debug, BodyProps } from '@react-three/cannon';
 import { Html } from '@react-three/drei';
 import { MeshProps, useThree } from '@react-three/fiber';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import * as THREE from 'three';
 
 type Item = { id: string; position: [number, number, number] };
@@ -53,7 +53,7 @@ const SphereMesh = (meshProps: MeshProps) => {
   );
 };
 
-export const CannonCube = () => {
+export const SimpleCannonPhysics = () => {
   const [items, setItems] = useState<Item[]>(
     Array.from({ length: 1 }, (_, i) => ({
       id: `item-${i + 1}`,
@@ -109,46 +109,48 @@ export const CannonCube = () => {
         </button>
       </Html>
 
-      <Physics>
-        <Debug>
-          <BoxMesh
-            type={'Static'}
-            name="box"
-            position={[0, -2, 0]}
-            args={[
-              new THREE.BoxGeometry(10, 0.4, 4),
-              new THREE.MeshStandardMaterial({ color: 'orange' }),
-            ]}
-          ></BoxMesh>
+      <Suspense>
+        <Physics>
+          <Debug>
+            <BoxMesh
+              type={'Static'}
+              name="box"
+              position={[0, -2, 0]}
+              args={[
+                new THREE.BoxGeometry(10, 0.4, 4),
+                new THREE.MeshStandardMaterial({ color: 'orange' }),
+              ]}
+            ></BoxMesh>
 
-          {items.map((item, i) => (
-            <>
-              {i % 2 === 0 ? (
-                <SphereMesh
-                  key={item.id}
-                  name="ball"
-                  position={item.position}
-                  args={[
-                    new THREE.SphereGeometry(0.2, 10, 10),
-                    new THREE.MeshStandardMaterial({ color: 'red' }),
-                  ]}
-                ></SphereMesh>
-              ) : (
-                <BoxMesh
-                  type={'Dynamic'}
-                  key={item.id}
-                  name="box"
-                  position={item.position}
-                  args={[
-                    new THREE.BoxGeometry(0.4, 0.2, 0.2),
-                    new THREE.MeshStandardMaterial({ color: 'blue' }),
-                  ]}
-                ></BoxMesh>
-              )}
-            </>
-          ))}
-        </Debug>
-      </Physics>
+            {items.map((item, i) => (
+              <>
+                {i % 2 === 0 ? (
+                  <SphereMesh
+                    key={item.id}
+                    name="ball"
+                    position={item.position}
+                    args={[
+                      new THREE.SphereGeometry(0.2, 10, 10),
+                      new THREE.MeshStandardMaterial({ color: 'red' }),
+                    ]}
+                  ></SphereMesh>
+                ) : (
+                  <BoxMesh
+                    type={'Dynamic'}
+                    key={item.id}
+                    name="box"
+                    position={item.position}
+                    args={[
+                      new THREE.BoxGeometry(0.4, 0.2, 0.2),
+                      new THREE.MeshStandardMaterial({ color: 'blue' }),
+                    ]}
+                  ></BoxMesh>
+                )}
+              </>
+            ))}
+          </Debug>
+        </Physics>
+      </Suspense>
     </>
   );
 };
