@@ -10,7 +10,7 @@ export const ToyMiniCoaster = (): JSX.Element => {
   const [items, setItems] = useState<Item[]>([]);
   const [debug, setDebug] = useState<boolean>(true);
   const { size } = useThree();
-  // create button position
+  // button settings
   const buttonWidth = 80;
   const buttonHeight = 40;
   const htmlTop = -size.height / 2;
