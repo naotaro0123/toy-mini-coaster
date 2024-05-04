@@ -5,13 +5,15 @@ import { Html } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 
 type Item = { id: string; position: [number, number, number] };
+type DropType = 'ball' | 'car';
 
 export const ToyMiniCoaster = (): JSX.Element => {
   const [items, setItems] = useState<Item[]>([]);
+  const [dropType, setDropType] = useState<DropType>('ball');
   const [debug, setDebug] = useState<boolean>(true);
   const { size } = useThree();
   // button settings
-  const buttonWidth = 80;
+  const buttonWidth = 130;
   const buttonHeight = 40;
   const htmlTop = -size.height / 2;
   const htmlRight = -size.width / 2;
@@ -45,11 +47,18 @@ export const ToyMiniCoaster = (): JSX.Element => {
             ])
           }
         >
-          create
+          drop {dropType}
         </button>
         <button style={{ width: buttonWidth, height: buttonHeight }} onClick={() => setItems([])}>
-          reset
+          reset {dropType}s
         </button>
+        <div>
+          dropType:
+          <select value={dropType} onChange={(e) => setDropType(e.target.value as DropType)}>
+            <option value="ball">ball</option>
+            <option value="car">car</option>
+          </select>
+        </div>
         <div>
           <label>debug</label>
           <input type="checkbox" checked={debug} onChange={(e) => setDebug(e.target.checked)} />
