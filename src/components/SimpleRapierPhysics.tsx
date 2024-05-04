@@ -2,8 +2,37 @@ import { Html } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { Suspense, useState } from 'react';
 import { Physics, RigidBody } from '@react-three/rapier';
+import * as THREE from 'three';
 
 type Item = { id: string; position: [number, number, number] };
+
+const bodyLength = 12;
+const bodyWidth = 8;
+const bodyShape = new THREE.Shape();
+bodyShape.moveTo(0, 0);
+bodyShape.lineTo(0, bodyWidth);
+bodyShape.lineTo(bodyLength, bodyWidth);
+bodyShape.lineTo(bodyLength, 0);
+bodyShape.lineTo(0, 0);
+
+const bodyExtrudeSettings = {
+  steps: 1,
+  depth: 6,
+  bevelEnabled: true,
+  bevelThickness: 2,
+  bevelSize: 1,
+  bevelOffset: -4,
+  bevelSegments: 5,
+};
+
+const TireMesh = (props: { position: [number, number, number] }): JSX.Element => {
+  return (
+    <mesh position={props.position} scale={[0.5, 0.8, 0.8]}>
+      <sphereGeometry args={[0.2, 10, 10]} />
+      <meshStandardMaterial color={'red'} />
+    </mesh>
+  );
+};
 
 export const SimpleRapierPhysics = () => {
   const [items, setItems] = useState<Item[]>(
@@ -63,28 +92,59 @@ export const SimpleRapierPhysics = () => {
 
       <Suspense>
         <Physics debug={true} colliders={false}>
-          <RigidBody type="fixed" colliders="cuboid">
+          <RigidBody type="fixed" colliders="cuboid" rotation={[0, 0, Math.PI / 8]}>
             <mesh position={[0, -2, 0]}>
               <boxGeometry args={[10, 0.4, 4]} />
               <meshStandardMaterial color={'orange'} />
+            </mesh>
+            {/* guard */}
+            <mesh position={[0, -1.6, 1.8]}>
+              <boxGeometry args={[10, 0.4, 0.4]} />
+              <meshStandardMaterial color={'gray'} />
+            </mesh>
+            {/* guard */}
+            <mesh position={[0, -1.6, -1.8]}>
+              <boxGeometry args={[10, 0.4, 0.4]} />
+              <meshStandardMaterial color={'gray'} />
             </mesh>
           </RigidBody>
 
           {items.map((item, i) => (
             <>
               {i % 2 === 0 ? (
-                <RigidBody colliders="ball">
-                  <mesh position={item.position}>
+                <RigidBody colliders="ball" position={item.position}>
+                  <mesh>
                     <sphereGeometry args={[0.2, 10, 10]} />
                     <meshStandardMaterial color={'red'} />
                   </mesh>
                 </RigidBody>
               ) : (
-                <RigidBody colliders="cuboid">
-                  <mesh position={item.position}>
-                    <boxGeometry args={[0.4, 0.2, 0.2]} />
-                    <meshStandardMaterial color={'blue'} />
-                  </mesh>
+                // <RigidBody colliders="cuboid">
+                //   <mesh position={item.position}>
+                //     <boxGeometry args={[0.4, 0.2, 0.2]} />
+                //     <meshStandardMaterial color={'blue'} />
+                //   </mesh>
+                // </RigidBody>
+
+                <RigidBody
+                  colliders="cuboid"
+                  position={item.position}
+                  rotation={[0, Math.PI / 2, 0]}
+                >
+                  <group>
+                    <mesh position={[0, 0, 0]} scale={0.1}>
+                      <extrudeGeometry args={[bodyShape, bodyExtrudeSettings]} />
+                      <meshStandardMaterial color={'blue'} />
+                    </mesh>
+                    {/* front-right */}
+                    <TireMesh position={[0.22, 0.4, -0.1]} />
+                    {/* front-left */}
+                    <TireMesh position={[0.98, 0.4, -0.1]} />
+                    {/* back-right */}
+                    <TireMesh position={[0.22, 0.4, 0.72]} />
+                    {/* back-left */}
+                    <TireMesh position={[0.98, 0.4, 0.72]} />
+                  </group>
                 </RigidBody>
               )}
             </>

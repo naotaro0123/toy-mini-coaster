@@ -1,7 +1,8 @@
 import './App.css';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { ToyMiniCoaster } from './components/ToyMiniCoaster';
+import { SimpleRapierPhysics } from './components/SimpleRapierPhysics';
+// import { ToyMiniCoaster } from './components/ToyMiniCoaster';
 
 function App() {
   return (
@@ -11,8 +12,8 @@ function App() {
         <OrbitControls />
         {/* <HelloCube /> */}
         {/* <SimpleCannonPhysics /> */}
-        {/* <SimpleRapierPhysics /> */}
-        <ToyMiniCoaster />
+        <SimpleRapierPhysics />
+        {/* <ToyMiniCoaster /> */}
       </Canvas>
     </>
   );
