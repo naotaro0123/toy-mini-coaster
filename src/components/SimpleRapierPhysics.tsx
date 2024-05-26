@@ -28,20 +28,20 @@ const bodyExtrudeSettings = {
 
 const TireMesh = (props: { position: [number, number, number] }): JSX.Element => {
   return (
-    <mesh position={props.position} scale={[0.5, 0.8, 0.8]}>
-      <sphereGeometry args={[0.2, 10, 10]} />
-      <meshStandardMaterial color={'red'} />
+    <mesh position={props.position} scale={[0.8, 0.8, 0.8]}>
+      <sphereGeometry args={[0.2, 40, 40]} />
+      <meshStandardMaterial color={'red'} opacity={0.5} transparent={true} />
     </mesh>
   );
 };
 
+const createItem = (i: number): Item => ({
+  id: `item-${i + 1}`,
+  position: [4, 2, Math.random() * 2.0 - 1.0],
+});
+
 export const SimpleRapierPhysics = () => {
-  const [items, setItems] = useState<Item[]>(
-    Array.from({ length: 1 }, (_, i) => ({
-      id: `item-${i + 1}`,
-      position: [5, 2, Math.random() * 2.0 - 1.0],
-    })),
-  );
+  const [items, setItems] = useState<Item[]>(Array.from({ length: 1 }, (_, i) => createItem(i)));
   const [dropType, setDropType] = useState<DropType>('ball');
   const { size } = useThree();
   // create button position
@@ -69,15 +69,7 @@ export const SimpleRapierPhysics = () => {
       >
         <button
           style={{ width: buttonWidth, height: buttonHeight }}
-          onClick={() =>
-            setItems([
-              ...items,
-              {
-                id: `item-${items.length + 1}`,
-                position: [5, 2, Math.random() * 2.0 - 1.0],
-              },
-            ])
-          }
+          onClick={() => setItems([...items, createItem(items.length)])}
         >
           create
         </button>
@@ -123,42 +115,45 @@ export const SimpleRapierPhysics = () => {
                   </mesh>
                 </RigidBody>
               ) : (
-                // <RigidBody colliders="cuboid">
-                //   <mesh position={item.position}>
-                //     <boxGeometry args={[0.4, 0.2, 0.2]} />
-                //     <meshStandardMaterial color={'blue'} />
-                //   </mesh>
-                // </RigidBody>
+                <>
+                  <RigidBody colliders="trimesh" position={[0, 0.5, 0]}>
+                    <mesh>
+                      <boxGeometry args={[1.4, 0.1, 0.5]} />
+                      <meshStandardMaterial color={'green'} />
+                    </mesh>
+                  </RigidBody>
 
-                // <RigidBody
-                //   colliders="cuboid"
-                //   position={item.position}
-                //   rotation={[0, Math.PI / 2, 0]}
-                // >
-                //   <group>
-                //     <mesh position={[0, 0, 0]} scale={0.1}>
-                //       <extrudeGeometry args={[bodyShape, bodyExtrudeSettings]} />
-                //       <meshStandardMaterial color={'blue'} />
-                //     </mesh>
-                //     {/* front-right */}
-                //     <TireMesh position={[0.22, 0.4, -0.1]} />
-                //     {/* front-left */}
-                //     <TireMesh position={[0.98, 0.4, -0.1]} />
-                //     {/* back-right */}
-                //     <TireMesh position={[0.22, 0.4, 0.72]} />
-                //     {/* back-left */}
-                //     <TireMesh position={[0.98, 0.4, 0.72]} />
-                //   </group>
-                // </RigidBody>
+                  <RigidBody colliders="hull" position={[0, 0.4, 0]} rotation={[0, Math.PI / 2, 0]}>
+                    <mesh rotation={[0, 0, Math.PI / 2]}>
+                      <cylinderGeometry args={[0.05, 0.05, 1, 20]} />
+                      <meshStandardMaterial color={'blue'} />
+                    </mesh>
+                    <TireMesh position={[0.4, 0, 0]} />
+                    <TireMesh position={[-0.4, 0, 0]} />
+                  </RigidBody>
 
-                <RigidBody colliders="hull" position={item.position} rotation={[0, Math.PI / 2, 0]}>
-                  <mesh>
-                    <boxGeometry args={[1.0, 0.1, 0.1]} />
-                    <meshStandardMaterial color={'blue'} />
-                  </mesh>
-                  <TireMesh position={[0.5, 0, 0]} />
-                  <TireMesh position={[-0.5, 0, 0]} />
-                </RigidBody>
+                  <RigidBody colliders="trimesh" position={[0, 0.3, 0]}>
+                    <mesh>
+                      <boxGeometry args={[1.4, 0.1, 0.5]} />
+                      <meshStandardMaterial color={'green'} />
+                    </mesh>
+                  </RigidBody>
+
+                  {/* back */}
+                  {/* <RigidBody colliders="hull" position={[1, 0.4, 0]} rotation={[0, Math.PI / 2, 0]}>
+                    <mesh rotation={[0, 0, Math.PI / 2]}>
+                      <cylinderGeometry args={[0.05, 0.05, 1, 20]} />
+                      <meshStandardMaterial color={'blue'} />
+                    </mesh>
+                    <TireMesh position={[0.4, 0, 0]} />
+                    <TireMesh position={[-0.4, 0, 0]} />
+                  </RigidBody> */}
+
+                  {/* <mesh position={item.position} scale={0.1}>
+                      <extrudeGeometry args={[bodyShape, bodyExtrudeSettings]} />
+                      <meshStandardMaterial color={'blue'} />
+                    </mesh> */}
+                </>
               )}
             </>
           ))}
