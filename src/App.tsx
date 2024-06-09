@@ -7,7 +7,7 @@ import { SimpleRapierPhysics } from './components/SimpleRapierPhysics';
 function App() {
   return (
     <>
-      <Canvas camera={{ position: [0, 6, -10], zoom: 3 }}>
+      <Canvas camera={{ position: [0, 6, -10], zoom: 1.6 }}>
         <color attach="background" args={['lightgray']} />
         <OrbitControls />
         {/* <HelloCube /> */}
