@@ -254,10 +254,10 @@
   resolved "https://registry.yarnpkg.com/@chevrotain/utils/-/utils-10.5.0.tgz#0ee36f65b49b447fbac71b9e5af5c5c6c98ac057"
   integrity sha512-hBzuU5+JjB2cqNZyszkDHZgOSrUUT8V3dhgRl8Q9Gp6dAj/H5+KILGjbhDpc3Iy9qmqlm/akuOI2ut9VUtzJxQ==
 
-"@dimforge/rapier3d-compat@0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@dimforge/rapier3d-compat/-/rapier3d-compat-0.12.0.tgz#7b3365e1dfdc5cd957b45afe920b4ac06c7cd389"
-  integrity sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow==
+"@dimforge/rapier3d-compat@0.13.1":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@dimforge/rapier3d-compat/-/rapier3d-compat-0.13.1.tgz#d9da32941de5fcfae55ffb6ac26c38539f57ddf4"
+  integrity sha512-SsQ/MTH4Vvs8f62g31iVV1VOmzwNwsJl91rVzafi5B2mCrI2OsQ3VyjJOb4/tvS5VNc6OLjIDgfClcOAkW+O2A==
 
 "@esbuild/aix-ppc64@0.20.2":
   version "0.20.2"
@@ -550,10 +550,10 @@
     cannon-es "^0.20.0"
     cannon-es-debugger "^1.0.0"
 
-"@react-three/drei@^9.106.0":
-  version "9.106.0"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.106.0.tgz#bbcda3d1ba39a4227e18b3c6bcf8027958da8b6d"
-  integrity sha512-P+X3Iz79ea+L4YTVPOIFAzqVU8hwrKdr/I6UgN7ZQkJ9qIQ7qa7ew8ss/+c3+46RT1tzxgo5ec89RnLjFIBmuw==
+"@react-three/drei@^9.107.0":
+  version "9.107.0"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.107.0.tgz#7dec097d85ede8a2aeb9d5b2c02d66e95f13610a"
+  integrity sha512-8AxMfk3NmE/tPwN/wAcTyYIZgi4YCsm+ID3vEVb28CCJ4bo4b2UZPWfrMskO7zM1T2ePZaQwmN4Q+cxSpYWn0A==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@mediapipe/tasks-vision" "0.10.8"
@@ -596,12 +596,12 @@
     suspend-react "^0.1.3"
     zustand "^3.7.1"
 
-"@react-three/rapier@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@react-three/rapier/-/rapier-1.3.1.tgz#2fd7b5b774b75770a19e55f21f77a1aad5b2cf74"
-  integrity sha512-M96p+pLz9v61onDMOAPTQ2DJhHVWBZyiOVYeIXCo6inwKmtQ04ZUZXaHDQOYWkTKiph1nkdiGqLW0WC5AwCa0g==
+"@react-three/rapier@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@react-three/rapier/-/rapier-1.4.0.tgz#053329f4a6fc09404405092f9de5effcf1a46d78"
+  integrity sha512-mQryvEx9mW6u0bHo3KDc7G6gURjKSOA1I+W9EVNDJmI8hC+HoS9WyDzc8QnXyMYmvUAMEqOQImECNXAtoLacHw==
   dependencies:
-    "@dimforge/rapier3d-compat" "0.12.0"
+    "@dimforge/rapier3d-compat" "0.13.1"
     suspend-react "^0.1.3"
     three-stdlib "2.23.9"
 
