@@ -29,10 +29,10 @@ const WheelJoint = ({
 };
 
 export const Car = (props: GroupProps) => {
-  const bodyX = 2.2;
+  const bodyX = 2.6;
   const halfBodyX = bodyX / 2;
   const bodyY = 0.4;
-  const bodyZ = 1.8;
+  const bodyZ = 1.84;
   // 車体と車輪の隙間を埋めるためのマージン
   const zSubMargin = 0.5;
 
