@@ -14,7 +14,7 @@ const DownGardRailMesh = (props: {
 }): JSX.Element => {
   return (
     <mesh name={props.name} position={props.position}>
-      <boxGeometry args={[4.1, 0.2, 0.1]} />
+      <boxGeometry args={[4.1, 0.3, 0.1]} />
       <meshStandardMaterial color={guardrailColor} />
     </mesh>
   );
@@ -77,8 +77,10 @@ export const MiniCoaster = (): JSX.Element => {
             <boxGeometry args={[3.3, 0.1, 1]} />
             <meshStandardMaterial color={baseColor} />
           </mesh>
-          <DownGardRailMesh name="first-down-wall-back" position={[-0.28, 0, 0.55]} />
-          <DownGardRailMesh name="first-down-wall-front" position={[-0.28, 0, -0.55]} />
+          <DownGardRailMesh name="first-down-wall-back1" position={[-0.28, 0, 0.55]} />
+          <DownGardRailMesh name="first-down-wall-back2" position={[-0.28, 0, 0.4]} />
+          <DownGardRailMesh name="first-down-wall-front1" position={[-0.28, 0, -0.55]} />
+          <DownGardRailMesh name="first-down-wall-front2" position={[-0.28, 0, -0.4]} />
         </group>
 
         <DownWallMesh name="second" position={[-0.25, 1.2, 0]} rotateDirection="left" />

@@ -29,12 +29,12 @@ const WheelJoint = ({
 };
 
 export const Car = (props: GroupProps) => {
-  const bodyX = 2.6;
+  const bodyX = 0.5;
   const halfBodyX = bodyX / 2;
-  const bodyY = 0.4;
-  const bodyZ = 1.84;
+  const bodyY = 0.1;
+  const bodyZ = 0.35;
   // 車体と車輪の隙間を埋めるためのマージン
-  const zSubMargin = 0.5;
+  const zSubMargin = 0.1;
 
   const bodyRef = useRef<RapierRigidBody>(null);
   const wheelPositions: [number, number, number][] = [
@@ -62,7 +62,7 @@ export const Car = (props: GroupProps) => {
         >
           <Cylinder
             rotation={[Math.PI / 2, 0, 0]}
-            args={[bodyY + 0.1, bodyY + 0.1, 0.4, 32]}
+            args={[bodyY + 0.06, bodyY + 0.06, 0.14, 32]}
             castShadow
             receiveShadow
           >

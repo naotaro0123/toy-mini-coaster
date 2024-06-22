@@ -3,6 +3,7 @@ import { MiniCoaster } from './MiniCoaster';
 import { useState } from 'react';
 import { Html } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
+import { Car } from './Car';
 
 type Item = { id: string; position: [number, number, number] };
 type DropType = 'ball' | 'car';
@@ -69,12 +70,16 @@ export const ToyMiniCoaster = (): JSX.Element => {
         <MiniCoaster />
         {items.map((item) => (
           <>
-            <RigidBody colliders="ball">
-              <mesh position={item.position}>
-                <sphereGeometry args={[0.2, 10, 10]} />
-                <meshStandardMaterial color={'red'} />
-              </mesh>
-            </RigidBody>
+            {dropType === 'ball' ? (
+              <RigidBody colliders="ball">
+                <mesh position={item.position} key={item.id}>
+                  <sphereGeometry args={[0.2, 10, 10]} />
+                  <meshStandardMaterial color={'red'} />
+                </mesh>
+              </RigidBody>
+            ) : (
+              <Car position={item.position} key={item.id} />
+            )}
           </>
         ))}
       </Physics>
