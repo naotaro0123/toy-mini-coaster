@@ -2,7 +2,7 @@ import { Html } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { Suspense, useState } from 'react';
 import { Physics, RigidBody } from '@react-three/rapier';
-import { Car } from './Car';
+import { TireJoint4 } from './TireJoint4';
 
 type Item = { id: string; position: [number, number, number] };
 type DropType = 'ball' | 'car';
@@ -10,7 +10,7 @@ type DropType = 'ball' | 'car';
 const createItem = (i: number): Item => ({
   id: `item-${i + 1}`,
   // position: [4, 2, Math.random() * 2.0 - 1.0],
-  position: [8, 1, 0],
+  position: [8, 1.2, 0],
 });
 
 export const SimpleRapierPhysics = () => {
@@ -61,18 +61,18 @@ export const SimpleRapierPhysics = () => {
 
       <Suspense>
         <Physics debug={true} colliders={false}>
-          <RigidBody type="fixed" colliders="cuboid" rotation={[0, 0, Math.PI / 18]}>
+          <RigidBody type="fixed" colliders="cuboid" rotation={[0, 0, Math.PI / 10]}>
             <mesh position={[0, -2, 0]}>
-              <boxGeometry args={[20, 0.4, 4]} />
+              <boxGeometry args={[20, 0.4, 2]} />
               <meshStandardMaterial color={'orange'} />
             </mesh>
             {/* guard */}
-            <mesh position={[0, -1.6, 1.8]}>
+            <mesh position={[0, -1.6, 0.8]}>
               <boxGeometry args={[20, 0.4, 0.4]} />
               <meshStandardMaterial color={'gray'} />
             </mesh>
             {/* guard */}
-            <mesh position={[0, -1.6, -1.8]}>
+            <mesh position={[0, -1.6, -0.8]}>
               <boxGeometry args={[20, 0.4, 0.4]} />
               <meshStandardMaterial color={'gray'} />
             </mesh>
@@ -81,20 +81,20 @@ export const SimpleRapierPhysics = () => {
           <RigidBody
             type="fixed"
             colliders="cuboid"
-            rotation={[0, 0, -Math.PI / 18]}
-            position={[-19, 0, 0]}
+            rotation={[0, 0, -Math.PI / 10]}
+            position={[-17, 0, 0]}
           >
             <mesh position={[0, -2, 0]}>
-              <boxGeometry args={[20, 0.4, 4]} />
+              <boxGeometry args={[20, 0.4, 2]} />
               <meshStandardMaterial color={'orange'} />
             </mesh>
             {/* guard */}
-            <mesh position={[0, -1.6, 1.8]}>
+            <mesh position={[0, -1.6, 0.8]}>
               <boxGeometry args={[20, 0.4, 0.4]} />
               <meshStandardMaterial color={'gray'} />
             </mesh>
             {/* guard */}
-            <mesh position={[0, -1.6, -1.8]}>
+            <mesh position={[0, -1.6, -0.8]}>
               <boxGeometry args={[20, 0.4, 0.4]} />
               <meshStandardMaterial color={'gray'} />
             </mesh>
@@ -109,7 +109,8 @@ export const SimpleRapierPhysics = () => {
                 </mesh>
               </RigidBody>
             ) : (
-              <Car position={item.position} key={item.id} />
+              <TireJoint4 position={item.position} key={item.id} />
+              // <TireJoint2 position={item.position} key={item.id} />
             ),
           )}
         </Physics>
