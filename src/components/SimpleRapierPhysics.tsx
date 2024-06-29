@@ -10,7 +10,7 @@ type DropType = 'ball' | 'car';
 const createItem = (i: number): Item => ({
   id: `item-${i + 1}`,
   // position: [4, 2, Math.random() * 2.0 - 1.0],
-  position: [8, 2, 0],
+  position: [8, 1, 0],
 });
 
 export const SimpleRapierPhysics = () => {
@@ -62,7 +62,6 @@ export const SimpleRapierPhysics = () => {
       <Suspense>
         <Physics debug={true} colliders={false}>
           <RigidBody type="fixed" colliders="cuboid" rotation={[0, 0, Math.PI / 18]}>
-            {/* <RigidBody type="fixed" colliders="cuboid"> */}
             <mesh position={[0, -2, 0]}>
               <boxGeometry args={[20, 0.4, 4]} />
               <meshStandardMaterial color={'orange'} />
@@ -79,22 +78,40 @@ export const SimpleRapierPhysics = () => {
             </mesh>
           </RigidBody>
 
-          {items.map((item) => (
-            <>
-              {dropType === 'ball' ? (
-                <RigidBody colliders="ball" position={item.position} key={item.id}>
-                  <mesh>
-                    <sphereGeometry args={[0.2, 10, 10]} />
-                    <meshStandardMaterial color={'red'} />
-                  </mesh>
-                </RigidBody>
-              ) : (
-                <>
-                  <Car position={item.position} key={item.id} />
-                </>
-              )}
-            </>
-          ))}
+          <RigidBody
+            type="fixed"
+            colliders="cuboid"
+            rotation={[0, 0, -Math.PI / 18]}
+            position={[-19, 0, 0]}
+          >
+            <mesh position={[0, -2, 0]}>
+              <boxGeometry args={[20, 0.4, 4]} />
+              <meshStandardMaterial color={'orange'} />
+            </mesh>
+            {/* guard */}
+            <mesh position={[0, -1.6, 1.8]}>
+              <boxGeometry args={[20, 0.4, 0.4]} />
+              <meshStandardMaterial color={'gray'} />
+            </mesh>
+            {/* guard */}
+            <mesh position={[0, -1.6, -1.8]}>
+              <boxGeometry args={[20, 0.4, 0.4]} />
+              <meshStandardMaterial color={'gray'} />
+            </mesh>
+          </RigidBody>
+
+          {items.map((item) =>
+            dropType === 'ball' ? (
+              <RigidBody colliders="ball" position={item.position} key={item.id}>
+                <mesh>
+                  <sphereGeometry args={[0.2, 10, 10]} />
+                  <meshStandardMaterial color={'red'} />
+                </mesh>
+              </RigidBody>
+            ) : (
+              <Car position={item.position} key={item.id} />
+            ),
+          )}
         </Physics>
       </Suspense>
     </>
