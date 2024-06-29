@@ -21,6 +21,7 @@ const DownGardRailMesh = (props: {
 };
 
 const DownWallMesh = (props: DownMeshProps): JSX.Element => {
+  const downGardRailPositionX = props.rotateDirection === 'right' ? -0.36 : 0.36;
   return (
     <group
       name={`${props.name}-down-wall`}
@@ -28,16 +29,16 @@ const DownWallMesh = (props: DownMeshProps): JSX.Element => {
       rotation={[0, 0, props.rotateDirection === 'right' ? rotateAngle : -rotateAngle]}
     >
       <mesh name={`${props.name}-down-wall-front`}>
-        <boxGeometry args={[3.3, 0.1, 0.7]} />
+        <boxGeometry args={[3.0, 0.1, 0.7]} />
         <meshStandardMaterial color={baseColor} />
       </mesh>
       <DownGardRailMesh
         name={`${props.name}-down-wall-back`}
-        position={[props.rotateDirection === 'right' ? -0.28 : 0.28, 0, 0.4]}
+        position={[downGardRailPositionX, 0, 0.4]}
       />
       <DownGardRailMesh
         name={`${props.name}-down-wall-front`}
-        position={[props.rotateDirection === 'right' ? -0.28 : 0.28, 0, -0.4]}
+        position={[downGardRailPositionX, 0, -0.4]}
       />
     </group>
   );
@@ -72,21 +73,21 @@ export const MiniCoaster = (): JSX.Element => {
           <meshStandardMaterial color={baseColor} />
         </mesh>
 
-        <group name="first-down-wall" position={[0.28, 2.1, 0]} rotation={[0, 0, rotateAngle]}>
+        <group name="first-down-wall" position={[0.4, 2.1, 0]} rotation={[0, 0, rotateAngle]}>
           <mesh name="first-down-wall-base">
-            <boxGeometry args={[3.3, 0.1, 1]} />
+            <boxGeometry args={[3, 0.1, 1]} />
             <meshStandardMaterial color={baseColor} />
           </mesh>
-          <DownGardRailMesh name="first-down-wall-back1" position={[-0.28, 0, 0.55]} />
-          <DownGardRailMesh name="first-down-wall-back2" position={[-0.28, 0, 0.4]} />
-          <DownGardRailMesh name="first-down-wall-front1" position={[-0.28, 0, -0.55]} />
-          <DownGardRailMesh name="first-down-wall-front2" position={[-0.28, 0, -0.4]} />
+          <DownGardRailMesh name="first-down-wall-back1" position={[-0.4, 0, 0.5]} />
+          <DownGardRailMesh name="first-down-wall-back2" position={[-0.4, 0, 0.4]} />
+          <DownGardRailMesh name="first-down-wall-front1" position={[-0.4, 0, -0.5]} />
+          <DownGardRailMesh name="first-down-wall-front2" position={[-0.4, 0, -0.4]} />
         </group>
 
-        <DownWallMesh name="second" position={[-0.25, 1.2, 0]} rotateDirection="left" />
-        <DownWallMesh name="first" position={[0.25, 0.2, 0]} rotateDirection="right" />
-        <DownWallMesh name="fourth" position={[-0.25, -0.8, 0]} rotateDirection="left" />
-        <DownWallMesh name="fifth" position={[0.28, -1.85, 0]} rotateDirection="right" />
+        <DownWallMesh name="second-down-wall" position={[-0.4, 1.2, 0]} rotateDirection="left" />
+        <DownWallMesh name="third-down-wall" position={[0.4, 0.2, 0]} rotateDirection="right" />
+        <DownWallMesh name="fourth-down-wall" position={[-0.4, -0.8, 0]} rotateDirection="left" />
+        <DownWallMesh name="fifth-down-wall" position={[0.4, -1.8, 0]} rotateDirection="right" />
       </RigidBody>
     </group>
   );

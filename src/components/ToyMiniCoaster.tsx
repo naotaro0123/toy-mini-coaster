@@ -10,7 +10,7 @@ type DropType = 'ball' | 'car';
 
 export const ToyMiniCoaster = (): JSX.Element => {
   const [items, setItems] = useState<Item[]>([]);
-  const [dropType, setDropType] = useState<DropType>('ball');
+  const [dropType, setDropType] = useState<DropType>('car');
   const [debug, setDebug] = useState<boolean>(true);
   const { size } = useThree();
   // button settings

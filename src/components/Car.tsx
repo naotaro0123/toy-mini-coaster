@@ -29,7 +29,7 @@ const WheelJoint = ({
 };
 
 export const Car = (props: GroupProps) => {
-  const bodyX = 0.5;
+  const bodyX = 0.6;
   const halfBodyX = bodyX / 2;
   const bodyY = 0.1;
   const bodyZ = 0.35;
@@ -62,7 +62,7 @@ export const Car = (props: GroupProps) => {
         >
           <Cylinder
             rotation={[Math.PI / 2, 0, 0]}
-            args={[bodyY + 0.06, bodyY + 0.06, 0.14, 32]}
+            args={[bodyY + 0.05, bodyY + 0.05, 0.14, 32]}
             castShadow
             receiveShadow
           >
