@@ -21,7 +21,7 @@ const WheelJoint = ({
 
   useFrame(() => {
     if (joint.current) {
-      joint.current.configureMotorVelocity(20, 10);
+      joint.current.configureMotorVelocity(20, 2);
     }
   });
 
@@ -29,7 +29,7 @@ const WheelJoint = ({
 };
 
 export const Car = (props: GroupProps) => {
-  const bodyX = 0.6;
+  const bodyX = 0.42;
   const halfBodyX = bodyX / 2;
   const bodyY = 0.1;
   const bodyZ = 0.35;
@@ -44,7 +44,6 @@ export const Car = (props: GroupProps) => {
     [halfBodyX, 0, -bodyZ + zSubMargin],
   ];
   const wheelRefs = useRef(wheelPositions.map(() => createRef<RapierRigidBody>()));
-
   return (
     <group {...props}>
       <RigidBody colliders="cuboid" ref={bodyRef} type="dynamic">
@@ -52,6 +51,7 @@ export const Car = (props: GroupProps) => {
           <meshStandardMaterial color={'red'} />
         </Box>
       </RigidBody>
+      {/* タイヤのメッシュ */}
       {wheelPositions.map((wheelPosition, index) => (
         <RigidBody
           position={wheelPosition}
@@ -70,6 +70,7 @@ export const Car = (props: GroupProps) => {
           </Cylinder>
         </RigidBody>
       ))}
+      {/* タイヤのジョイント */}
       {wheelPositions.map((wheelPosition, index) => (
         <WheelJoint
           key={index}
