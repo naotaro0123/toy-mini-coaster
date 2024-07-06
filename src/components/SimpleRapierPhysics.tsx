@@ -1,7 +1,7 @@
 import { Html } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
-import { Suspense, useState } from 'react';
 import { Physics, RigidBody } from '@react-three/rapier';
+import { Suspense, useState } from 'react';
 import { TireJoint4 } from './TireJoint4';
 
 type Item = { id: string; position: [number, number, number] };
@@ -60,7 +60,7 @@ export const SimpleRapierPhysics = () => {
       </Html>
 
       <Suspense>
-        <Physics debug={true} colliders={false}>
+        <Physics debug={true} colliders={false} gravity={[0, -30, 0]}>
           <RigidBody type="fixed" colliders="cuboid" rotation={[0, 0, Math.PI / 10]}>
             <mesh position={[0, -2, 0]}>
               <boxGeometry args={[20, 0.4, 2]} />
