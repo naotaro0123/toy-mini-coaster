@@ -22,6 +22,7 @@ const WheelJoint = ({
   useFrame(() => {
     if (joint.current) {
       joint.current.configureMotorVelocity(20, 10);
+      joint.current.configureMotorPosition(0.0, 1.0, 1.0);
     }
   });
 

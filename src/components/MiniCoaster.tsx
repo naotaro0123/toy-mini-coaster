@@ -73,21 +73,22 @@ export const MiniCoaster = (): JSX.Element => {
           <meshStandardMaterial color={baseColor} />
         </mesh>
 
-        <group name="first-down-wall" position={[0.4, 2.1, 0]} rotation={[0, 0, rotateAngle]}>
-          <mesh name="first-down-wall-base">
+        <group name="top-down-wall" position={[0.4, 2.1, 0]} rotation={[0, 0, rotateAngle]}>
+          <mesh name="top-down-wall-base">
             <boxGeometry args={[3, 0.1, 1]} />
             <meshStandardMaterial color={baseColor} />
           </mesh>
-          <DownGardRailMesh name="first-down-wall-back1" position={[-0.4, 0, 0.5]} />
-          <DownGardRailMesh name="first-down-wall-back2" position={[-0.4, 0, 0.4]} />
-          <DownGardRailMesh name="first-down-wall-front1" position={[-0.4, 0, -0.5]} />
-          <DownGardRailMesh name="first-down-wall-front2" position={[-0.4, 0, -0.4]} />
+          <DownGardRailMesh name="top-down-wall-back1" position={[-0.4, 0, 0.5]} />
+          <DownGardRailMesh name="top-down-wall-back2" position={[-0.4, 0, 0.4]} />
+          <DownGardRailMesh name="top-down-wall-front1" position={[-0.4, 0, -0.5]} />
+          <DownGardRailMesh name="top-down-wall-front2" position={[-0.4, 0, -0.4]} />
         </group>
 
-        <DownWallMesh name="second-down-wall" position={[-0.4, 1.2, 0]} rotateDirection="left" />
-        <DownWallMesh name="third-down-wall" position={[0.4, 0.2, 0]} rotateDirection="right" />
-        <DownWallMesh name="fourth-down-wall" position={[-0.4, -0.8, 0]} rotateDirection="left" />
-        <DownWallMesh name="fifth-down-wall" position={[0.4, -1.8, 0]} rotateDirection="right" />
+        <DownWallMesh name="second-down-wall" position={[-0.4, 1.4, 0]} rotateDirection="left" />
+        <DownWallMesh name="third-down-wall" position={[0.4, 0.7, 0]} rotateDirection="right" />
+        <DownWallMesh name="fourth-down-wall" position={[-0.4, 0, 0]} rotateDirection="left" />
+        <DownWallMesh name="fifth-down-wall" position={[0.4, -0.7, 0]} rotateDirection="right" />
+        <DownWallMesh name="bottom-down-wall" position={[0.4, -1.8, 0]} rotateDirection="right" />
       </RigidBody>
     </group>
   );

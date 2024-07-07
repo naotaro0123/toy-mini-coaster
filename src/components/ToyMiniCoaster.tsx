@@ -1,9 +1,9 @@
-import { Physics, RigidBody } from '@react-three/rapier';
-import { MiniCoaster } from './MiniCoaster';
-import { useState } from 'react';
 import { Html } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
+import { Physics, RigidBody } from '@react-three/rapier';
+import { useState } from 'react';
 import { Car } from './Car';
+import { MiniCoaster } from './MiniCoaster';
 
 type Item = { id: string; position: [number, number, number] };
 type DropType = 'ball' | 'car';
@@ -43,7 +43,7 @@ export const ToyMiniCoaster = (): JSX.Element => {
               ...items,
               {
                 id: `item-${items.length + 1}`,
-                position: [1.4, 3, 0],
+                position: [1.4, 2.8, 0],
               },
             ])
           }
