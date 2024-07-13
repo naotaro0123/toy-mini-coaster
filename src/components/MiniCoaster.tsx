@@ -29,7 +29,7 @@ const DownWallMesh = (props: DownMeshProps): JSX.Element => {
       rotation={[0, 0, props.rotateDirection === 'right' ? rotateAngle : -rotateAngle]}
     >
       <mesh name={`${props.name}-down-wall-front`}>
-        <boxGeometry args={[3.0, 0.1, 0.7]} />
+        <boxGeometry args={[3.2, 0.1, 0.7]} />
         <meshStandardMaterial color={baseColor} />
       </mesh>
       <DownGardRailMesh
@@ -75,7 +75,7 @@ export const MiniCoaster = (): JSX.Element => {
 
         <group name="top-down-wall" position={[0.4, 2.1, 0]} rotation={[0, 0, rotateAngle]}>
           <mesh name="top-down-wall-base">
-            <boxGeometry args={[3, 0.1, 1]} />
+            <boxGeometry args={[3.2, 0.1, 1]} />
             <meshStandardMaterial color={baseColor} />
           </mesh>
           <DownGardRailMesh name="top-down-wall-back1" position={[-0.4, 0, 0.5]} />
@@ -88,7 +88,8 @@ export const MiniCoaster = (): JSX.Element => {
         <DownWallMesh name="third-down-wall" position={[0.4, 0.7, 0]} rotateDirection="right" />
         <DownWallMesh name="fourth-down-wall" position={[-0.4, 0, 0]} rotateDirection="left" />
         <DownWallMesh name="fifth-down-wall" position={[0.4, -0.7, 0]} rotateDirection="right" />
-        <DownWallMesh name="bottom-down-wall" position={[0.4, -1.8, 0]} rotateDirection="right" />
+        <DownWallMesh name="six-down-wall" position={[-0.4, -1.4, 0]} rotateDirection="left" />
+        {/* <DownWallMesh name="bottom-down-wall" position={[0.4, -1.8, 0]} rotateDirection="right" /> */}
       </RigidBody>
     </group>
   );
