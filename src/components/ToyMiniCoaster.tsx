@@ -43,7 +43,7 @@ export const ToyMiniCoaster = (): JSX.Element => {
               ...items,
               {
                 id: `item-${items.length + 1}`,
-                position: [1.4, 2.8, 0],
+                position: [1.4, 2.5, 0],
               },
             ])
           }
@@ -66,13 +66,13 @@ export const ToyMiniCoaster = (): JSX.Element => {
         </div>
       </Html>
 
-      <Physics debug={debug} colliders={false}>
+      <Physics debug={debug} colliders={false} gravity={[0, -80, 0]}>
         <MiniCoaster />
         {items.map((item) =>
           dropType === 'ball' ? (
             <RigidBody colliders="ball" key={item.id}>
               <mesh position={item.position}>
-                <sphereGeometry args={[0.2, 10, 10]} />
+                <sphereGeometry args={[0.14, 10, 10]} />
                 <meshStandardMaterial color={'red'} />
               </mesh>
             </RigidBody>
