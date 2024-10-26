@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@react-three/cannon": "^6.6.0",
-    "@react-three/drei": "^9.113.0",
+    "@react-three/drei": "^9.115.0",
     "@react-three/fiber": "^8.17.10",
-    "@react-three/rapier": "^1.4.0",
+    "@react-three/rapier": "^1.5.0",
     "@types/three": "^0.169.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-unused-imports": "^4.1.4",
